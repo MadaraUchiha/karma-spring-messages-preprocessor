@@ -40,6 +40,11 @@ describe('Processor', () => {
 
             expected.should.deepEqual(actual);
         });
+        it("should escape double quotes in values", () => {
+            const expected = [new Node("a", "a\\\"")];
+            const actual = processor.process(["a = a\""]);
 
+            expected.should.deepEqual(actual);
+        });
     });
 });
