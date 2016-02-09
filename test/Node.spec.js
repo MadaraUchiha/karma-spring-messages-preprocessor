@@ -50,8 +50,17 @@ describe("Node", () => {
         it ("should child nodes whose parents have no values", () => {
             const expected = `{"a":{"b":p("b")}}`;
             const actual = r([
-                new Node("a", "", [
+                new Node("a", null, [
                     new Node("b", "b")])]);
+
+            actual.should.be.equal(expected);
+        });
+
+        it("should render nodes with empty values", () => {
+            const expected = `{"a":p(""),"b":p("b")}`;
+            const actual = r([
+                new Node("a", ""),
+                new Node("b", "b")]);
 
             actual.should.be.equal(expected);
         });

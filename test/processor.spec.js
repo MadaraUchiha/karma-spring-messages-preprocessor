@@ -8,43 +8,49 @@ describe('Processor', () => {
             const expected = [new Node("a", "a")];
             const actual = processor.process(["a = a"]);
 
-            expected.should.deepEqual(actual);
+            actual.should.deepEqual(expected);
         });
         it("should process multiple, independent lines", () => {
             const expected = [new Node("a", "a"), new Node("b", "b")];
             const actual = processor.process(["a = a", "b = b"]);
 
-            expected.should.deepEqual(actual);
+            actual.should.deepEqual(expected);
         });
         it("should process multiple, dependent lines", () => {
             const expected = [new Node("a", "a", [new Node("b", "b")])];
             const actual = processor.process(["a = a", "a.b = b"]);
 
-            expected.should.deepEqual(actual);
+            actual.should.deepEqual(expected);
         });
         it("should process child values without parents", () => {
-            const expected = [new Node("a", "", [new Node("b", "b")])];
+            const expected = [new Node("a", null, [new Node("b", "b")])];
             const actual = processor.process(["a.b = b"]);
 
-            expected.should.deepEqual(actual);
+            actual.should.deepEqual(expected);
         });
         it("should process independent line where some have children", () => {
-            const expected = [new Node("a", "", [new Node("b", "b")]), new Node("c" ,"c")];
+            const expected = [new Node("a", null, [new Node("b", "b")]), new Node("c" ,"c")];
             const actual = processor.process(["a.b = b", "c = c"]);
 
-            expected.should.deepEqual(actual);
+            actual.should.deepEqual(expected);
         });
         it("should behave the same with different spaces around the = sign", () => {
             const expected = processor.process(["a.b=b", "c         =          c"]);
             const actual = processor.process(["a.b = b", "c = c"]);
 
-            expected.should.deepEqual(actual);
+            actual.should.deepEqual(expected);
         });
         it("should escape double quotes in values", () => {
             const expected = [new Node("a", "a\\\"")];
             const actual = processor.process(["a = a\""]);
 
-            expected.should.deepEqual(actual);
+            actual.should.deepEqual(expected);
+        });
+        it("should pass null when there's no value, and empty string when there's empty value", () => {
+            const expected = [new Node("a", ""), new Node("b", null, [new Node("c", "c")])];
+            const actual = processor.process(["a =", "b.c = c"]);
+
+            actual.should.deepEqual(expected);
         });
     });
 });
