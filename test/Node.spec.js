@@ -10,7 +10,7 @@ describe("Node", () => {
             const actual = r([
                 new Node("a", "a")]);
 
-            expected.should.be.equal(actual);
+            actual.should.be.equal(expected);
         });
         it("should render Nodes with one child", () => {
             const expected = `{"a":p("a",{"b":p("b")})}`;
@@ -18,7 +18,7 @@ describe("Node", () => {
                 new Node("a", "a", [
                     new Node("b", "b")])]);
 
-            expected.should.be.equal(actual);
+            actual.should.be.equal(expected);
         });
         it ("should render Nodes with multiple children", () => {
             const expected = `{"a":p("a",{"b":p("b"),"c":p("c")})}`;
@@ -27,7 +27,7 @@ describe("Node", () => {
                     new Node("b", "b"),
                     new Node("c", "c")])]);
 
-            expected.should.be.equal(actual);
+            actual.should.be.equal(expected);
         });
         it ("should render Nodes with multiple levels of children", () => {
             const expected = `{"a":p("a",{"b":p("b"),"c":p("c",{"d":p("d")})})}`;
@@ -37,7 +37,7 @@ describe("Node", () => {
                     new Node("c", "c", [
                         new Node("d", "d")])])]);
 
-            expected.should.be.equal(actual);
+            actual.should.be.equal(expected);
         });
         it("should render multiple Nodes", () => {
             const expected = `{"a":p("a"),"b":p("b")}`;
@@ -45,7 +45,15 @@ describe("Node", () => {
                 new Node("a", "a"),
                 new Node("b", "b")]);
 
-            expected.should.be.equal(actual);
+            actual.should.be.equal(expected);
+        });
+        it ("should child nodes whose parents have no values", () => {
+            const expected = `{"a":{"b":p("b")}}`;
+            const actual = r([
+                new Node("a", "", [
+                    new Node("b", "b")])]);
+
+            actual.should.be.equal(expected);
         });
 
     });
