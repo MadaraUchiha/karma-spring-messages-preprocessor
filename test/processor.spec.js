@@ -52,5 +52,17 @@ describe('Processor', () => {
 
             actual.should.deepEqual(expected);
         });
+        it("should ignore empty lines", () => {
+            const expected = processor.process(["", "a=a", ""]);
+            const actual = processor.process(["a=a"]);
+
+            actual.should.deepEqual(expected);
+        });
+        it("should ignore lines starting with # (comments)", () => {
+            const expected = processor.process(["#this is a comment", "a=a"]);
+            const actual = processor.process(["a=a"]);
+
+            actual.should.deepEqual(expected);
+        });
     });
 });
