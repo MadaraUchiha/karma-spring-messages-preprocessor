@@ -64,5 +64,11 @@ describe('Processor', () => {
 
             actual.should.deepEqual(expected);
         });
+        it("should ignore lines which are not key=value", () => {
+            const expected = processor.process(["has.no.equals.sign", "a=a"]);
+            const actual = processor.process(["a=a"]);
+
+            actual.should.deepEqual(expected);
+        });
     });
 });
