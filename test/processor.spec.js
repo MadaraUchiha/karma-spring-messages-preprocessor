@@ -70,5 +70,17 @@ describe('Processor', () => {
 
             actual.should.deepEqual(expected);
         });
+        it("should accept values with escaped . in them", () => {
+            const expected = [new Node("a.", "a")];
+            const actual = processor.process(["a\\.=a"]);
+
+            actual.should.deepEqual(expected);
+        });
+        it("should accept values with escaped = in them", () => {
+            const expected = [new Node("a=", "a")];
+            const actual = processor.process(["a\\==a"]);
+
+            actual.should.deepEqual(expected);
+        });
     });
 });
