@@ -20,6 +20,9 @@
     "url": "https://github.com/MadaraUchiha/karma-spring-messages-preprocessor/issues"
   },
   "homepage": "https://github.com/MadaraUchiha/karma-spring-messages-preprocessor#readme",
+  "dependencies": {
+    "minimatch": "^3.0.0"
+  },
   "devDependencies": {
     "mocha": "^2.4.5",
     "should": "^8.2.1"
